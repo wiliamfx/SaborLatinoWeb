@@ -1,0 +1,91 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Fondo como imagen fija */
+.banner {
+    background: url('imagenes/fondo.jpeg') no-repeat center center/cover;
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Logo fijo */
+.logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 120px;
+    height: auto;
+}
+
+.logo:hover {
+    cursor: pointer;
+}
+
+/* Contenedor del formulario */
+.card-contenedor {
+    position: relative;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+
+.card-contenido h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-row {
+    margin-bottom: 15px;
+}
+
+.form-row input, .form-row select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    background: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+    border-radius: 5px;
+}
+
+input[type="submit"]:hover {
+    background: #218838;
+}
+
+@media (max-width: 768px) {
+    .card-contenedor {
+        padding: 20px;
+    }
+
+    .card-contenido h3 {
+        font-size: 1.5rem;
+    }
+}
