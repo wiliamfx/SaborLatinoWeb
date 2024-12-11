@@ -215,60 +215,72 @@
         <p>&copy; 2024 Restobar. Todos los derechos reservados.</p>
     </footer>
     <script>
-        // Productos de ejemplo (puedes añadir más productos con sus detalles aquí)
+        // Simulación de productos para cada categoría
         const productos = {
             cervezas: [
-                { id: 1, nombre: "Cerveza Corona", imagen: "imagenes/cerveza1.jpg", precio: 10.90 },
-                { id: 2, nombre: "Cerveza Heineken", imagen: "imagenes/cerveza2.jpg", precio: 12.90 }
+                { nombre: "Cerveza Lager", descripcion: "Cerveza refrescante, ideal para cualquier ocasión.", precio: 3.50 },
+                { nombre: "Cerveza IPA", descripcion: "Cerveza amarga, perfecta para los amantes del lúpulo.", precio: 4.00 }
             ],
             platos_fuertes: [
-                { id: 1, nombre: "Lomo Saltado", imagen: "imagenes/lomo.jpg", precio: 22.90 },
-                { id: 2, nombre: "Ají de Gallina", imagen: "imagenes/aji.jpg", precio: 18.90 }
-            ]
+                { nombre: "Pack Licores", descripcion: "Combinación de licores premium para disfrutar en cualquier fiesta.", precio: 25.00 },
+                { nombre: "Pack Tequila", descripcion: "Tequila mexicano para disfrutar solo o en cocteles.", precio: 20.00 }
+            ],
+            bebidas: [
+                { nombre: "Refresco Cola", descripcion: "Refresco dulce y burbujeante.", precio: 1.50 },
+                { nombre: "Jugo Natural", descripcion: "Jugo 100% natural de frutas.", precio: 2.00 }
+            ],
+            postres: [
+                { nombre: "Tarta de Manzana", descripcion: "Deliciosa tarta de manzana con masa crujiente.", precio: 5.00 },
+                { nombre: "Brownie de Chocolate", descripcion: "Un brownie suave y esponjoso con trozos de chocolate.", precio: 4.50 }
+            ],
+            // Añadir más categorías y productos según sea necesario
         };
-
-        // Carrito de compras
-        let carrito = [];
-
-        // Función para cargar productos
+        
         function loadProducts(categoria) {
-            const productosSection = document.getElementById('productos-section');
-            productosSection.innerHTML = '';  // Limpiar productos anteriores
-
+            // Limpiar la sección de productos antes de cargar nuevos productos
+            const productosSection = document.getElementById("productos-section");
+            productosSection.innerHTML = ""; // Limpiar productos previos
+        
             // Obtener los productos de la categoría seleccionada
             const productosCategoria = productos[categoria];
+        
             if (productosCategoria) {
                 productosCategoria.forEach(producto => {
-                    const productoHTML = `
-                        <div class="product">
-                            <img src="${producto.imagen}" alt="${producto.nombre}">
-                            <h3>${producto.nombre}</h3>
-                            <p>Precio: S/ ${producto.precio}</p>
-                            <button onclick="addToCart(${producto.id}, '${producto.nombre}', ${producto.precio}, '${producto.imagen}')">Agregar al carrito</button>
-                        </div>
-                    `;
-                    productosSection.innerHTML += productoHTML;
+                    // Crear el elemento de producto
+                    const productoDiv = document.createElement("div");
+                    productoDiv.classList.add("producto");
+        
+                    // Crear el contenido de cada producto
+                    const nombre = document.createElement("h3");
+                    nombre.innerText = producto.nombre;
+        
+                    const descripcion = document.createElement("p");
+                    descripcion.innerText = producto.descripcion;
+        
+                    const precio = document.createElement("p");
+                    precio.innerText = `Precio: $${producto.precio.toFixed(2)}`;
+        
+                    const botonCantidad = document.createElement("button");
+                    botonCantidad.innerText = "Añadir al carrito";
+                    botonCantidad.onclick = () => {
+                        alert(`Añadido: ${producto.nombre}`);
+                    };
+        
+                    // Añadir los elementos al contenedor del producto
+                    productoDiv.appendChild(nombre);
+                    productoDiv.appendChild(descripcion);
+                    productoDiv.appendChild(precio);
+                    productoDiv.appendChild(botonCantidad);
+        
+                    // Añadir el producto a la sección
+                    productosSection.appendChild(productoDiv);
                 });
             } else {
-                productosSection.innerHTML = '<p>No hay productos en esta categoría.</p>';
+                productosSection.innerHTML = "<p>No se encontraron productos en esta categoría.</p>";
             }
         }
-
-        // Función para agregar al carrito
-        function addToCart(id, nombre, precio, imagen) {
-            // Verificar si el producto ya está en el carrito
-            const productoExistente = carrito.find(producto => producto.id === id);
-            if (productoExistente) {
-                productoExistente.cantidad += 1;
-            } else {
-                carrito.push({ id, nombre, precio, imagen, cantidad: 1 });
-            }
-
-            // Actualizar el contador del carrito
-            document.getElementById('carrito-count').textContent = carrito.length;
-            alert(`${nombre} ha sido agregado al carrito`);
-        }
-    </script>
+        </script>
+        
 
 
     
