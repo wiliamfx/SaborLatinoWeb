@@ -158,54 +158,54 @@
         </div>
         <button class="ver-todo">Ver Todo</button>
     </section><br>
-    <!-- Categorías -->
+
 
     <div class="menu-container-icons">
         <h2>Selecciona una categoría:</h2>
         <div class="categories">
-            <div class="category" onclick="loadProducts('cervezas')">
-                <i class="fas fa-beer"></i> <!-- Ícono de cerveza -->
+            <div class="category" onclick="loadProducts('1')">
+                <i class="fas fa-beer"></i>
                 <span>Cervezas</span>
             </div>
-            <div class="category" onclick="loadProducts('platos_fuertes')">
-                <i class="fas fa-utensils"></i> <!-- Ícono de utensilios de comida -->
+            <div class="category" onclick="loadProducts('2')">
+                <i class="fas fa-utensils"></i>
                 <span>Pack Licores</span>
             </div>
             <div class="category" onclick="loadProducts('bebidas')">
-                <i class="fas fa-glass-martini"></i> <!-- Ícono de bebida -->
+                <i class="fas fa-glass-martini"></i>
                 <span>Comidas</span>
             </div>
             <div class="category" onclick="loadProducts('postres')">
-                <i class="fas fa-cake"></i> <!-- Ícono de postres -->
+                <i class="fas fa-cake"></i>
                 <span>Listo para tomar</span>
             </div>
             <div class="category" onclick="loadProducts('ensaladas')">
-                <i class="fas fa-lemon"></i> <!-- Ícono de ensalada -->
+                <i class="fas fa-lemon"></i>
                 <span>Aguas y gaseosas</span>
             </div>
             <div class="category" onclick="loadProducts('snacks')">
-                <i class="fas fa-pizza-slice"></i> <!-- Ícono de snacks -->
+                <i class="fas fa-pizza-slice"></i>
                 <span>Cigarros y vapes</span>
             </div>
             <div class="category" onclick="loadProducts('especiales')">
-                <i class="fas fa-ice-cream"></i> <!-- Ícono de helado -->
+                <i class="fas fa-ice-cream"></i>
                 <span>Helados</span>
             </div>
             <div class="category" onclick="loadProducts('vinos')">
-                <i class="fas fa-wine-glass-alt"></i> <!-- Ícono de vino -->
+                <i class="fas fa-wine-glass-alt"></i>
                 <span>Piqueos y snacks</span>
             </div>
             <div class="category" onclick="loadProducts('cafes')">
-                <i class="fas fa-coffee"></i> <!-- Ícono de café -->
+                <i class="fas fa-coffee"></i>
                 <span>Postre</span>
             </div>
         </div>
     </div>
-  
     
-    <section id="productos-section" class="productos-section">
-        <!-- Los productos se cargarán aquí dinámicamente -->
-    </section>
+    <!-- Contenedor de productos -->
+    <div id="product-container" class="product-container">
+        <!-- Aquí se cargarán los productos según la categoría seleccionada -->
+    </div>
     
     
     
@@ -214,72 +214,7 @@
     <footer>
         <p>&copy; 2024 Restobar. Todos los derechos reservados.</p>
     </footer>
-    <script>
-        // Simulación de productos para cada categoría
-        const productos = {
-            cervezas: [
-                { nombre: "Cerveza Lager", descripcion: "Cerveza refrescante, ideal para cualquier ocasión.", precio: 3.50 },
-                { nombre: "Cerveza IPA", descripcion: "Cerveza amarga, perfecta para los amantes del lúpulo.", precio: 4.00 }
-            ],
-            platos_fuertes: [
-                { nombre: "Pack Licores", descripcion: "Combinación de licores premium para disfrutar en cualquier fiesta.", precio: 25.00 },
-                { nombre: "Pack Tequila", descripcion: "Tequila mexicano para disfrutar solo o en cocteles.", precio: 20.00 }
-            ],
-            bebidas: [
-                { nombre: "Refresco Cola", descripcion: "Refresco dulce y burbujeante.", precio: 1.50 },
-                { nombre: "Jugo Natural", descripcion: "Jugo 100% natural de frutas.", precio: 2.00 }
-            ],
-            postres: [
-                { nombre: "Tarta de Manzana", descripcion: "Deliciosa tarta de manzana con masa crujiente.", precio: 5.00 },
-                { nombre: "Brownie de Chocolate", descripcion: "Un brownie suave y esponjoso con trozos de chocolate.", precio: 4.50 }
-            ],
-            // Añadir más categorías y productos según sea necesario
-        };
-        
-        function loadProducts(categoria) {
-            // Limpiar la sección de productos antes de cargar nuevos productos
-            const productosSection = document.getElementById("productos-section");
-            productosSection.innerHTML = ""; // Limpiar productos previos
-        
-            // Obtener los productos de la categoría seleccionada
-            const productosCategoria = productos[categoria];
-        
-            if (productosCategoria) {
-                productosCategoria.forEach(producto => {
-                    // Crear el elemento de producto
-                    const productoDiv = document.createElement("div");
-                    productoDiv.classList.add("producto");
-        
-                    // Crear el contenido de cada producto
-                    const nombre = document.createElement("h3");
-                    nombre.innerText = producto.nombre;
-        
-                    const descripcion = document.createElement("p");
-                    descripcion.innerText = producto.descripcion;
-        
-                    const precio = document.createElement("p");
-                    precio.innerText = `Precio: $${producto.precio.toFixed(2)}`;
-        
-                    const botonCantidad = document.createElement("button");
-                    botonCantidad.innerText = "Añadir al carrito";
-                    botonCantidad.onclick = () => {
-                        alert(`Añadido: ${producto.nombre}`);
-                    };
-        
-                    // Añadir los elementos al contenedor del producto
-                    productoDiv.appendChild(nombre);
-                    productoDiv.appendChild(descripcion);
-                    productoDiv.appendChild(precio);
-                    productoDiv.appendChild(botonCantidad);
-        
-                    // Añadir el producto a la sección
-                    productosSection.appendChild(productoDiv);
-                });
-            } else {
-                productosSection.innerHTML = "<p>No se encontraron productos en esta categoría.</p>";
-            }
-        }
-        </script>
+    <script src="basedatos.js"></script>
         
 
 
