@@ -1,3 +1,6 @@
+tener las imagenes para ejecutar el query
+deben estar en tu C:\ProgramData\MySQL\MySQL Server 8.0\Uploads
+
 Instalar Nodejs
 
 Instalar los paquetes para vincular la base de datos (cmd)
