@@ -18,29 +18,26 @@ function loadProducts(categoria) {
         });
 }
 
-// Función para mostrar productos en el DOM
 function displayProducts(products) {
+    console.log("Datos recibidos:", products); // Verifica los datos
     const productsContainer = document.getElementById('products-container');
     productsContainer.innerHTML = ''; // Limpiar productos anteriores
 
     if (products.length === 0) {
-        // Si no hay productos, mostrar un mensaje
         productsContainer.innerHTML = `<p>No se encontraron productos en esta categoría.</p>`;
         return;
     }
 
-    // Mostrar productos en el contenedor
     products.forEach(product => {
         const productElement = document.createElement('div');
         productElement.classList.add('product');
 
         productElement.innerHTML = `
             <div class="product-image">
-                <!-- Aquí reemplaza 'ruta/a/la/imagen.jpg' con la URL de la imagen o su ruta -->
-                <img src="ruta/a/la/imagen.jpg" alt="${product.nombre}" />
+                <img src="http://localhost:3000/imagenes/${product.idproducto}" alt="${product.nombreproducto}" />
             </div>
             <div class="product-info">
-                <h3>${product.nombre}</h3>
+                <h3>${product.nombreproducto}</h3>
                 <p>Precio: S/${product.precio}</p>
             </div>
         `;
@@ -48,3 +45,4 @@ function displayProducts(products) {
         productsContainer.appendChild(productElement);
     });
 }
+

@@ -479,3 +479,11 @@ body {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
+
+
+.product-container img{
+    width: 200px;
+    height: auto;
+    margin: 20px;
+}
+
