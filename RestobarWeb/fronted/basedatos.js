@@ -1,9 +1,6 @@
-// Define la URL de tu API (ajusta esto según corresponda)
-const API_URL = 'http://localhost:3000/api/productos'; // Asegúrate de que la URL sea la correcta
-
 // Función para cargar productos según la categoría seleccionada
 function loadProducts(categoria) {
-    const url = `http://localhost:3000/productos/${categoria}`;
+    const url = `http://localhost:3000/categoria/${categoria}`;
     fetch(url)
         .then(response => {
             if (!response.ok) {
@@ -13,29 +10,41 @@ function loadProducts(categoria) {
         })
         .then(data => {
             console.log('Productos cargados:', data);
-            // Aquí agrega lógica para mostrar los productos en el DOM
+            // Llamar a displayProducts para renderizar los productos en el HTML
+            displayProducts(data);
         })
         .catch(error => {
             console.error('Error al cargar productos:', error);
         });
 }
 
+// Función para mostrar productos en el DOM
+function displayProducts(products) {
+    const productsContainer = document.getElementById('products-container');
+    productsContainer.innerHTML = ''; // Limpiar productos anteriores
 
-// Función para renderizar productos en el HTML
-function renderProducts(products) {
-    const container = document.getElementById('product-container');
-    container.innerHTML = ''; // Limpia el contenedor antes de agregar nuevos productos
+    if (products.length === 0) {
+        // Si no hay productos, mostrar un mensaje
+        productsContainer.innerHTML = `<p>No se encontraron productos en esta categoría.</p>`;
+        return;
+    }
 
+    // Mostrar productos en el contenedor
     products.forEach(product => {
-        const productCard = document.createElement('div');
-        productCard.className = 'product-card';
-        productCard.innerHTML = `
-            <img src="${product.image}" alt="${product.name}" class="product-image">
-            <h3>${product.name}</h3>
-            <p>${product.description}</p>
-            <p><strong>Precio:</strong> S/ ${product.price}</p>
+        const productElement = document.createElement('div');
+        productElement.classList.add('product');
+
+        productElement.innerHTML = `
+            <div class="product-image">
+                <!-- Aquí reemplaza 'ruta/a/la/imagen.jpg' con la URL de la imagen o su ruta -->
+                <img src="ruta/a/la/imagen.jpg" alt="${product.nombre}" />
+            </div>
+            <div class="product-info">
+                <h3>${product.nombre}</h3>
+                <p>Precio: S/${product.precio}</p>
+            </div>
         `;
-        container.appendChild(productCard);
+
+        productsContainer.appendChild(productElement);
     });
 }
-

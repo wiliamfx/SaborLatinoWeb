@@ -6,7 +6,7 @@ const db = require('../database');
 router.get('/:id', (req, res) => {
     const id = req.params.id;
 
-    const query = 'SELECT imagen FROM productos WHERE id = ?';
+    const query = 'select imagen from productos where idproducto = ?;';
     db.query(query, [id], (err, results) => {
         if (err || results.length === 0) return res.status(404).send('Imagen no encontrada');
 

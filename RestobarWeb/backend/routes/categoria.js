@@ -3,8 +3,9 @@ const router = express.Router();
 const db = require('../database');
 
 // Ruta para obtener todos los productos
+
 router.get('/', (req, res) => {
-    const query = 'SELECT idProducto AS id, nombreProducto AS nombre, precio FROM productos';
+    const query = 'select * from categoriasproductos;';
     db.query(query, (err, results) => {
         if (err) return res.status(500).send(err.message);
         res.json(results);
@@ -12,18 +13,14 @@ router.get('/', (req, res) => {
 });
 
 
+router.get('/:categoria', (req, res) => {
+    const categoria = req.params.categoria;
 
-
-// Ruta para obtener productos por categoría
-router.get('/:id', (req, res) => {
-    const id = req.params.id;
-
-    const query = `select idproducto, nombreproducto, precio from productos where idproducto = ?;
+    const query = `select idproducto, nombreproducto, precio from productos where idcategoria = ?;
     `;
-    db.query(query, [id], (err, results) => {
+    db.query(query, [categoria], (err, results) => {
         if (err) return res.status(500).send(err.message);
         res.json(results);
     });
 });
-
 module.exports = router;

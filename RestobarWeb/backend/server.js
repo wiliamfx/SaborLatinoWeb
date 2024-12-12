@@ -7,6 +7,7 @@ const app = express();
 // Importar rutas
 const productosRoutes = require('./routes/productos');
 const imagenesRoutes = require('./routes/imagenes');
+const categoriaRoutes = require('./routes/categoria');
 
 // Middleware
 app.use(cors()); // Habilitar CORS
@@ -15,6 +16,7 @@ app.use(express.json()); // Permitir JSON en las solicitudes
 // Rutas
 app.use('/productos', productosRoutes); // Rutas para productos
 app.use('/imagenes', imagenesRoutes);   // Rutas para imágenes
+app.use('/categoria', categoriaRoutes); 
 
 // Endpoint base de prueba
 app.get('/', (req, res) => {
