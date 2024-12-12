@@ -1,0 +1,10 @@
+Instalar Nodejs
+
+Instalar los paquetes para vincular la base de datos (cmd)
+npm init -y
+npm install mysql2 express
+
+primero ejecutar
+node server.js
+
+y ya despues abrir el index.html
