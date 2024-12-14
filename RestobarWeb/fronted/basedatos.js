@@ -77,20 +77,22 @@ function displayPromos(promociones) {
     promociones.forEach(promo => {
         const imagenURL = `http://localhost:3000/promociones/imagen/${promo.idpromocion}`;
         const promoElement = document.createElement('div');
-        promoElement.classList.add('product');
+        promoElement.classList.add('promos');
 
         promoElement.innerHTML = `
             <div class="promocion-card">
-                <span class="descuento">${promo.descuento}30% OFF</span>
-                <img src="${imagenURL}" alt="${promo.descripcionpromocion}">
-                <div class="promo-details">
-                    <p>${promo.descripcionpromocion}</p>
-                    <p><span class="precio-original">S/ ${promo.precioreal}</span> ${promo.precioreal*(100-promo.descuento)/100}</p>
-                    <a href="#" class="ver-producto">Ver producto</a>
-                </div>
-            </div>`
-            ;
+            <span class="descuento">${Math.floor(promo.descuento)}% OFF</span>
+            <img src="${imagenURL}" alt="${promo.descripcionpromocion}">
+            <div class="promo-details">
+                <p>${promo.descripcionpromocion}</p>
+                <p><span class="precio-original">S/ ${promo.precioreal}</span> S/ ${(promo.precioreal * (100 - promo.descuento) / 100).toFixed(2)}</p>
+            </div>
+            <div class="buttonagregar">
+                <button onclick="addToCart(${promo.idpromocion}, '${promo.descripcionpromocion}', ${promo.precioreal * (100 - promo.descuento) / 100}, '${imagenURL}')">Agregar al carrito</button>
+            </div>
+        </div>
 
+            `;
             promosContainer.appendChild(promoElement);
     });
 }

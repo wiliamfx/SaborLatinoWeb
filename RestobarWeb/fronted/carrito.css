@@ -83,3 +83,21 @@
         .btn-remove:hover {
             background: #c82333;
         }
+
+        .precio-cant {
+            display: flex; /* Asegura que el texto y el input estén en línea */
+            align-items: center; /* Alineación vertical */
+            justify-content: flex-end; /* Alinea los elementos a la derecha */
+            gap: 5px; /* Espacio entre el texto y el input */
+            font-size: 1rem; /* Tamaño de fuente */
+            margin-left: auto; /* Empuja el elemento completamente hacia la derecha */
+        }
+        
+        .precio-cant input[type="number"] {
+            width: 50px; /* Ajusta el ancho del input */
+            padding: 5px; /* Espaciado interno */
+            border-radius: 5px; /* Bordes redondeados */
+            border: 1px solid #521717; /* Borde gris claro */
+            text-align: center; /* Centra el valor dentro del input */
+        }
+        
