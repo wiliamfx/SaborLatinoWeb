@@ -6,8 +6,8 @@ const app = express();
 
 // Importar rutas
 const productosRoutes = require('./routes/productos');
-const imagenesRoutes = require('./routes/imagenes');
 const categoriaRoutes = require('./routes/categoria');
+const promocionesRoutes = require('./routes/promociones');
 
 // Middleware
 app.use(cors()); // Habilitar CORS
@@ -15,8 +15,8 @@ app.use(express.json()); // Permitir JSON en las solicitudes
 
 // Rutas
 app.use('/productos', productosRoutes); // Rutas para productos
-app.use('/imagenes', imagenesRoutes);   // Rutas para imágenes
-app.use('/categoria', categoriaRoutes); 
+app.use('/categoria', categoriaRoutes);
+app.use('/promociones', promocionesRoutes); 
 
 // Endpoint base de prueba
 app.get('/', (req, res) => {

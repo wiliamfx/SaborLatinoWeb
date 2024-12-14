@@ -29,7 +29,7 @@ function displayProducts(products) {
     }
 
     products.forEach(product => {
-        const imagenURL = `http://localhost:3000/imagenes/${product.idproducto}`;
+        const imagenURL = `http://localhost:3000/productos/imagen/${product.idproducto}`;
         const productElement = document.createElement('div');
         productElement.classList.add('product');
 
@@ -41,6 +41,55 @@ function displayProducts(products) {
                 <h3>${product.nombreproducto}</h3>
                 <p>Precio: S/${product.precio}</p>
                 <button onclick="addToCart(${product.idproducto}, '${product.nombreproducto}', ${product.precio}, '${imagenURL}')">Agregar al carrito</button>
+            </div>
+        `;
+
+        productsContainer.appendChild(productElement);
+    });
+}
+
+function loadPromos() {
+    const url = `http://localhost:3000/categoria/${categoria}`;
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error al cargar productos: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Productos cargados:', data);
+            // Llamar a displayProducts para renderizar los productos en el HTML
+            displayProducts(data);
+        })
+        .catch(error => {
+            console.error('Error al cargar productos:', error);
+        });
+}
+function displayPromos() {
+    console.log("Datos recibidos:"); // Verifica los datos
+    const productsContainer = document.getElementById('promocion-container');
+    promosContainer.innerHTML = ''; // Limpiar productos anteriores
+
+    if (products.length === 0) {
+        productsContainer.innerHTML = `<p>No se encontraron productos en esta categoría.</p>`;
+        return;
+    }
+
+    products.forEach(product => {
+        const imagenURL = `http://localhost:3000/productos/imagen/${product.idproducto}`;
+        const productElement = document.createElement('div');
+        productElement.classList.add('product');
+
+        productElement.innerHTML = `
+            <div class="promocion-card">
+                <span class="descuento">30% OFF</span>
+                <img src="imagenes/alita.png" alt="Pack Coca Cola + Inca Kola">
+                <div class="promo-details">
+                    <p>Pack (6 Alitas + 1 maracu x 500 ml)</p>
+                    <p><span class="precio-original">S/ 19.60</span> S/ 13.90</p>
+                    <a href="#" class="ver-producto">Ver producto</a>
+                </div>
             </div>
         `;
 

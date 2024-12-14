@@ -59,9 +59,12 @@ INSERT INTO categoriasProductos (nombreCategoria) VALUES
 
 INSERT INTO productos (nombreProducto, precio, stock, idCategoria, imagen) 
 VALUES  ('Cerveza Artesanal', 12.50, 50, 1, 				LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Cerveza_artesanal.webp')),
+		('Cerveza Heineken', 8.00, 50, 1, 					LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/heineken.jpg')),
+        ('Cerveza Cusqueña trigo', 7.50, 50, 1, 				LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/cusquenatrigo.png')),
 		('Cerveza Corona', 8.50, 100, 1, 					LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Cerveza_corona.webp')),
 		('Cerveza Cusqueña Negra', 9.00, 120, 1, 			LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Cerveza_cusquena.png')),
 		('Pack Whisky Jack Daniels', 120.00, 20, 2, 		LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Whisky.webp')),
+        ('Cerveza Pilsen', 7.50, 50, 1, 					LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Pilsen.jpg')),
 		('Combo Vodka Absolut + Red Bull', 150.00, 15, 2, 	LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Vodka.webp')),
 		('Hamburguesa Clásica', 25.00, 50, 3, 				LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/harmurguesa.jpg')),
 		('Pizza Pepperoni Personal', 18.00, 30, 3, 			LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/pizza.avif')),
@@ -71,7 +74,6 @@ VALUES  ('Cerveza Artesanal', 12.50, 50, 1, 				LOAD_FILE('C:/ProgramData/MySQL/
 		('Helado de Chocolate', 7.50, 40, 7, 				LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/helado.jpg')),
 		('Nachos con Guacamole', 20.00, 25, 8, 				LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/nachos.avif')),
 		('Brownie de Chocolate', 12.00, 30, 9, 				LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/brownie.jpg'));
-
 
 INSERT INTO promociones (descripcionPromocion, fechaInicio, fechaFin, descuento) VALUES
 ('2x1 en cervezas nacionales', '2024-12-01', '2024-12-15', 50.00),
