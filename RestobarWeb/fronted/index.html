@@ -52,104 +52,12 @@
         </div>
 
         <button>Ver lista</button>
+        
     </section>
     <section id="promociones" class="promociones">
         <h2>¡PROMOS DEL DÍA!</h2>
-        <div class="promocion-container">
-            <!-- Card 1 -->
-            <div class="promocion-card">
-                <span class="descuento">30% OFF</span>
-                <img src="imagenes/alita.png" alt="Pack Coca Cola + Inca Kola">
-                <div class="promo-details">
-                    <p>Pack (6 Alitas + 1 maracu x 500 ml)</p>
-                    <p><span class="precio-original">S/ 19.60</span> S/ 13.90</p>
-                    <a href="#" class="ver-producto">Ver producto</a>
-                </div>
-            </div>
-    
-            <!-- Card 2 -->
-            <div class="promocion-card">
-                <span class="descuento">30% OFF</span>
-                <img src="imagenes/vodka.png" alt="Pack Vodka Smirnoff">
-                <div class="promo-details">
-                    <p>Pack (1 Vodka Smirnoff Tamarindo 700 ml + 1 Vaso de shot Bandeo + 1 Jugo de naranja 1.5 Lt + 1 Hielo)</p>
-                    <p><span class="precio-original">S/ 50.90</span> S/ 42.90</p>
-                    <a href="#" class="ver-producto">Ver producto</a>
-                </div>
-            </div>
-    
-            <!-- Card 3 -->
-            <div class="promocion-card">
-                <span class="descuento">30% OFF</span>
-                <img src="imagenes/3 cruces.webp" alt="Cerveza Tres Cruces">
-                <div class="promo-details">
-                    <p>Cerveza Tres Cruces Lager Six Pack Lata x 310 ml</p>
-                    <p><span class="precio-original">S/ 23.90</span> S/ 18.90</p>
-                    <a href="#" class="ver-producto">Ver producto</a>
-                </div>
-            </div>
-    
-            <!-- Card 4 -->
-            <div class="promocion-card">
-                <span class="descuento">30% OFF</span>
-                <img src="imagenes/coca-hamburguesa.png" alt="Pack Coca Cola + Hamburguesas">
-                <div class="promo-details">
-                    <p>Pack (1 Coca Cola x 1 Lt + 2 Hamburguesas Parrilleras)</p>
-                    <p><span class="precio-original">S/ 20.90</span> S/ 13.90</p>
-                    <a href="#" class="ver-producto">Ver producto</a>
-                </div>
-            </div>
-    
-            <!-- Card 5 -->
-            <div class="promocion-card">
-                <span class="descuento">30% OFF</span>
-                <img src="imagenes/for-loko.webp" alt="Empanadas + Coca Cola">
-                <div class="promo-details">
-                    <p>Pack (6 Empanada De Carne + 1 Coca Cola x 1 Lt)</p>
-                    <p><span class="precio-original">S/ 24.30</span> S/ 14.90</p>
-                    <a href="#" class="ver-producto">Ver producto</a>
-                </div>
-            </div>
-    
-            <!-- Card 6 -->
-            <div class="promocion-card">
-                <span class="descuento">30% OFF</span>
-                <img src="imagenes/soer.webp" alt="Pack Four Loko">
-                <div class="promo-details">
-                    <p>Pack (2 RTD Four Loko Purple x 473 Ml)</p>
-                    <p><span class="precio-original">S/ 22.00</span> S/ 17.90</p>
-                    <a href="#" class="ver-producto">Ver producto</a>
-                </div>
-            </div>
-    
-            <!-- Card 7 -->
-            <div class="promocion-card">
-                <span class="descuento">30% OFF</span>
-                <img src="imagenes/tequeños.png" alt="Piscano Sour Maracuyá">
-                <div class="promo-details">
-                    <p>Piscano Sour Maracuyá 700 ml</p>
-                    <p><span class="precio-original">S/ 22.90</span> S/ 15.90</p>
-                    <a href="#" class="ver-producto">Ver producto</a>
-                </div>
-            </div>
-            <div class="promocion-card">
-                <span class="descuento">30% OFF</span>
-                <img src="imagenes/vodka-smirnoff.png" alt="Piscano Sour Maracuyá">
-                <div class="promo-details">
-                    <p>Piscano Sour Maracuyá 700 ml</p>
-                    <p><span class="precio-original">S/ 22.90</span> S/ 15.90</p>
-                    <a href="#" class="ver-producto">Ver producto</a>
-                </div>
-            </div>
-            <div class="promocion-card">
-                <span class="descuento">30% OFF</span>
-                <img src="imagenes/cervezas.png" alt="Piscano Sour Maracuyá">
-                <div class="promo-details">
-                    <p>Piscano Sour Maracuyá 700 ml</p>
-                    <p><span class="precio-original">S/ 22.90</span> S/ 15.90</p>
-                    <a href="#" class="ver-producto">Ver producto</a>
-                </div>
-            </div>
+        <div class="promocion-container" id = "promocion-container">
+            
         </div>
         <button class="ver-todo">Ver Todo</button>
     </section><br>
@@ -210,5 +118,6 @@
         <p>&copy; 2024 Restobar. Todos los derechos reservados.</p>
     </footer>
     <script src="basedatos.js"></script>
+    <script>loadPromos()</script>
 </body>
 </html>

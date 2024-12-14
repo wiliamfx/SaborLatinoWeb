@@ -49,7 +49,7 @@ function displayProducts(products) {
 }
 
 function loadPromos() {
-    const url = `http://localhost:3000/categoria/${categoria}`;
+    const url = `http://localhost:3000/promociones`;
     fetch(url)
         .then(response => {
             if (!response.ok) {
@@ -59,41 +59,39 @@ function loadPromos() {
         })
         .then(data => {
             console.log('Productos cargados:', data);
-            // Llamar a displayProducts para renderizar los productos en el HTML
-            displayProducts(data);
+            displayPromos(data);
         })
         .catch(error => {
             console.error('Error al cargar productos:', error);
         });
 }
-function displayPromos() {
+function displayPromos(promociones) {
     console.log("Datos recibidos:"); // Verifica los datos
-    const productsContainer = document.getElementById('promocion-container');
+    const promosContainer = document.getElementById('promocion-container');
     promosContainer.innerHTML = ''; // Limpiar productos anteriores
-
-    if (products.length === 0) {
-        productsContainer.innerHTML = `<p>No se encontraron productos en esta categoría.</p>`;
+    console.log("punto 12")
+    if (promociones.length === 0) {
+        promoContainer.innerHTML = `<p>No se encontraron productos en esta categoría.</p>`;
         return;
     }
+    promociones.forEach(promo => {
+        const imagenURL = `http://localhost:3000/promociones/imagen/${promo.idpromocion}`;
+        const promoElement = document.createElement('div');
+        promoElement.classList.add('product');
 
-    products.forEach(product => {
-        const imagenURL = `http://localhost:3000/productos/imagen/${product.idproducto}`;
-        const productElement = document.createElement('div');
-        productElement.classList.add('product');
-
-        productElement.innerHTML = `
+        promoElement.innerHTML = `
             <div class="promocion-card">
-                <span class="descuento">30% OFF</span>
-                <img src="imagenes/alita.png" alt="Pack Coca Cola + Inca Kola">
+                <span class="descuento">${promo.descuento}30% OFF</span>
+                <img src="${imagenURL}" alt="${promo.descripcionpromocion}">
                 <div class="promo-details">
-                    <p>Pack (6 Alitas + 1 maracu x 500 ml)</p>
-                    <p><span class="precio-original">S/ 19.60</span> S/ 13.90</p>
+                    <p>${promo.descripcionpromocion}</p>
+                    <p><span class="precio-original">S/ ${promo.precioreal}</span> ${promo.precioreal*(100-promo.descuento)/100}</p>
                     <a href="#" class="ver-producto">Ver producto</a>
                 </div>
-            </div>
-        `;
+            </div>`
+            ;
 
-        productsContainer.appendChild(productElement);
+            promosContainer.appendChild(promoElement);
     });
 }
 
