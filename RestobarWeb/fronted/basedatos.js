@@ -1,5 +1,3 @@
-let carrito = []; // Declarar carrito como un arreglo vacío
-
 // Función para cargar productos según la categoría seleccionada
 function loadProducts(categoria) {
     const url = `http://localhost:3000/categoria/${categoria}`;
@@ -31,7 +29,7 @@ function displayProducts(products) {
     }
 
     products.forEach(product => {
-        const imagenURL = `http://localhost:3000/imagenes/${product.idproducto}`    
+        const imagenURL = `http://localhost:3000/imagenes/${product.idproducto}`;
         const productElement = document.createElement('div');
         productElement.classList.add('product');
 
@@ -50,8 +48,15 @@ function displayProducts(products) {
     });
 }
 
+let carrito = JSON.parse(localStorage.getItem('carrito')) || []; // Cargar carrito desde localStorage
+
+// Función para calcular el precio total dinámicamente
+function calcularPrecioTotal() {
+    return carrito.reduce((total, producto) => total + producto.precio * producto.cantidad, 0);
+}
+
+// Función para agregar productos al carrito
 function addToCart(id, nombre, precio, imagen) {
-    // Verificar si el producto ya está en el carrito
     const productoExistente = carrito.find(producto => producto.id === id);
     if (productoExistente) {
         productoExistente.cantidad += 1;
@@ -59,12 +64,25 @@ function addToCart(id, nombre, precio, imagen) {
         carrito.push({ id, nombre, precio, imagen, cantidad: 1 });
     }
 
-    // Actualizar el contador del carrito
-    const carritoCountElement = document.getElementById('carrito-count');
-    if (carritoCountElement) {
-        carritoCountElement.textContent = carrito.length;
-    }
+    // Guardar carrito en localStorage
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+
+    // Actualizar contador del carrito (precio total dinámico)
+    actualizarCarritoUI();
 
     alert(`${nombre} ha sido agregado al carrito`);
-    console.log("soy un let" + carrito)
 }
+
+// Función para actualizar la interfaz del carrito
+function actualizarCarritoUI() {
+    const carritoCountElement = document.getElementById('carrito-count');
+    if (carritoCountElement) {
+        const total = calcularPrecioTotal();
+        carritoCountElement.textContent = `S/ ${total.toFixed(2)}`;
+    }
+}
+
+// Llamar a actualizarCarritoUI al cargar la página para mostrar el estado inicial del carrito
+document.addEventListener('DOMContentLoaded', () => {
+    actualizarCarritoUI();
+});
