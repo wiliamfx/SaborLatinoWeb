@@ -1,0 +1,85 @@
+
+        /* Estilos básicos */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .carrito-container {
+            width: 90%;
+            margin: 20px auto;
+            background: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .carrito-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        .carrito-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+
+        .carrito-item img {
+            width: 60px;
+            height: 60px;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+
+        .carrito-item-info {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .carrito-item h3 {
+            margin: 0;
+        }
+
+        .carrito-item p {
+            margin: 0 10px;
+        }
+
+        .carrito-footer {
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        .btn-remove {
+            background: #dc3545;
+        }
+
+        .btn-remove:hover {
+            background: #c82333;
+        }
