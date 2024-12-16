@@ -39,10 +39,9 @@ router.get('/imagen/:id', (req, res) => {
     });
 });
 
-// Configurar el almacenamiento para multer
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        const uploadPath = 'C:/Users/user/OneDrive/Desktop/web/SaborLatinoWeb/BD_imagenes';
+        const uploadPath = path.join(__dirname, 'uploads');  // Crea una carpeta "uploads" dentro de tu proyecto
         cb(null, uploadPath);
     },
     filename: (req, file, cb) => {
@@ -52,8 +51,23 @@ const storage = multer.diskStorage({
     }
 });
 
-// Middleware de multer
-const upload = multer({ storage: storage });
+// Validación de tipo de archivo y tamaño máximo
+const upload = multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+        console.log('Archivo recibido:', file);  // Verifica que el archivo esté llegando al servidor
+        const fileTypes = /jpeg|jpg|png/;
+        const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
+        const mimeType = fileTypes.test(file.mimetype);
+
+        if (extname && mimeType) {
+            return cb(null, true);
+        } else {
+            cb(new Error('Solo se permiten imágenes JPG, JPEG o PNG'));
+        }
+    },
+    limits: { fileSize: 5 * 1024 * 1024 }  // Limitar a 5MB
+});
 
 // Endpoint para insertar productos
 router.post('/insert', upload.single('imagen'), async (req, res) => {
@@ -64,7 +78,6 @@ router.post('/insert', upload.single('imagen'), async (req, res) => {
         return res.status(400).json({ error: 'No se cargó ninguna imagen' });
     }
 
-    // Aquí debes reemplazar con tu lógica para insertar datos en la base de datos
     const sqlInsert = `
         INSERT INTO productos (nombreProducto, precio, stock, idCategoria, imagen)
         VALUES (?, ?, ?, ?, ?)
@@ -72,8 +85,7 @@ router.post('/insert', upload.single('imagen'), async (req, res) => {
     const values = [nombreProducto, precio, stock, idCategoria, imagenPath];
 
     try {
-        // Asume que tienes una conexión de base de datos configurada
-        await db.query(sqlInsert, values);
+        await db.query(sqlInsert, values);  // Inserta los datos en la base de datos
         res.status(200).json({ message: 'Producto insertado con éxito' });
     } catch (error) {
         console.error('Error al insertar producto:', error);

@@ -23,6 +23,10 @@ app.get('/', (req, res) => {
     res.send('Bienvenido al servidor de productos e imágenes');
 });
 
+const path = require('path');
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // Iniciar servidor
 const PORT = 3000;
 app.listen(PORT, () => {

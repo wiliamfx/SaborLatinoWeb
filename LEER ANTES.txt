@@ -6,6 +6,8 @@ Instalar Nodejs
 Instalar los paquetes para vincular la base de datos (cmd)
 npm init -y
 npm install mysql2 express
+npm install multer
+npm install cors
 
 primero ejecutar
 node server.js
