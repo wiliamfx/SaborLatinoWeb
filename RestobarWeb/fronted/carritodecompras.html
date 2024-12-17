@@ -17,12 +17,41 @@
             <!-- Los productos del carrito se agregarán aquí dinámicamente -->
         </div>
         <div class="carrito-footer">
-            <button class="btn" onclick="finalizarCompra()">Finalizar Compra</button>
+            <button class="btn" onclick="mostrarFormulario()">Finalizar Compra</button>
         </div>
+    </div>
+
+    <!-- Formulario emergente -->
+    <div id="overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 10;"></div>
+
+    <div id="formulario-pedido" style="display: none; width: 400px; background: #fff; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 10px; padding: 30px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); z-index: 20;">
+        <h2 style="text-align: center; font-size: 24px; margin-bottom: 20px;">Datos del Pedido</h2>
+        <form id="pedidoForm">
+            <div style="margin-bottom: 15px;">
+                <label for="nombreCliente" style="display: block; font-weight: bold; margin-bottom: 5px;">Nombre Completo:</label>
+                <input type="text" id="nombreCliente" required placeholder="Ingresa tu nombre y apellido" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px;">
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label for="telefono" style="display: block; font-weight: bold; margin-bottom: 5px;">Teléfono:</label>
+                <input type="text" id="telefono" required placeholder="Ingresa tu número de teléfono" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px;">
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label for="mesa" style="display: block; font-weight: bold; margin-bottom: 5px;">Número de Mesa:</label>
+                <input type="number" id="mesa" required placeholder="Ej. 1" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px;">
+            </div>
+
+            <div style="display: flex; justify-content: space-between;">
+                <button type="submit" class="btn" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">Pedir</button>
+                <button type="button" class="btn btn-cancel" onclick="cerrarFormulario()" style="padding: 10px 20px; background-color: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer;">Cancelar</button>
+            </div>
+        </form>
     </div>
 
     <script>
         let carrito = JSON.parse(localStorage.getItem('carrito')) || []; // Cargar carrito desde localStorage
+        let pedidos = JSON.parse(localStorage.getItem('pedidos')) || []; // Cargar pedidos desde localStorage
 
         // Función para renderizar los productos del carrito
         function renderCarrito() {
@@ -45,8 +74,8 @@
 
                 item.innerHTML = `
                     <div class="carrito-item-info">
-                    <img src="${producto.imagen}" alt="${producto.nombre}">
-                    <h3>${producto.nombre}</h3>
+                        <img src="${producto.imagen}" alt="${producto.nombre}">
+                        <h3>${producto.nombre}</h3>
                     </div>
                     <div class="precio-cant">
                         <p>Precio: S/${producto.precio}</p>
@@ -69,7 +98,7 @@
             nuevaCantidad = parseInt(nuevaCantidad);
             if (nuevaCantidad > 0) {
                 carrito[index].cantidad = nuevaCantidad;
-                localStorage.setItem('carrito', JSON.stringify(carrito)); // Guardar cambios en localStorage
+                localStorage.setItem('carrito', JSON.stringify(carrito));
                 renderCarrito();
             }
         }
@@ -77,19 +106,66 @@
         // Función para eliminar un producto del carrito
         function eliminarProducto(index) {
             carrito.splice(index, 1);
-            localStorage.setItem('carrito', JSON.stringify(carrito)); // Guardar cambios en localStorage
+            localStorage.setItem('carrito', JSON.stringify(carrito));
             renderCarrito();
         }
 
-        // Función para finalizar la compra
-        function finalizarCompra() {
-            alert('¡Gracias por tu compra!');
-            carrito = []; // Vaciar carrito
-            localStorage.setItem('carrito', JSON.stringify(carrito)); // Guardar carrito vacío
-            renderCarrito();
+        // Función para mostrar el formulario
+        function mostrarFormulario() {
+            if (carrito.length === 0) {
+                alert('Tu carrito está vacío. Agrega productos antes de finalizar la compra.');
+                return;
+            }
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('formulario-pedido').style.display = 'block';
         }
 
-        // Renderizar carrito al cargar la página
+        // Función para cerrar el formulario
+        function cerrarFormulario() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('formulario-pedido').style.display = 'none';
+        }
+
+        // Función para guardar el pedido
+        document.getElementById('pedidoForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const nombreCliente = document.getElementById('nombreCliente').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const mesa = document.getElementById('mesa').value.trim();
+
+            const telefonoRegex = /^[0-9]{9}$/;
+            if (!telefonoRegex.test(telefono)) {
+                alert('El teléfono debe tener exactamente 9 dígitos numéricos.');
+                return;
+            }
+
+            if (isNaN(mesa) || mesa <= 0) {
+                alert('El número de mesa debe ser un número positivo.');
+                return;
+            }
+
+            const nuevoId = pedidos.length ? pedidos[pedidos.length - 1].id + 1 : 1;
+            const pedido = {
+                id: nuevoId,
+                cliente: nombreCliente,
+                telefono: telefono,
+                mesa: parseInt(mesa),
+                productos: [...carrito],
+                total: carrito.reduce((acc, prod) => acc + prod.precio * prod.cantidad, 0),
+                fecha: new Date().toLocaleString(),
+            };
+
+            pedidos.push(pedido);
+            localStorage.setItem('pedidos', JSON.stringify(pedidos));
+            carrito = [];
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            renderCarrito();
+            cerrarFormulario();
+            alert('Pedido realizado exitosamente.');
+            window.location.href = 'index.html';
+        });
+
         renderCarrito();
     </script>
 </body>

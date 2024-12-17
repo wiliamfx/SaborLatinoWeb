@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Iconos de Font Awesome -->
+    <style>
+        /* Estilo general */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #6a8dff, #5ec7f2);
+            background-image: url('https://stylelovely.com/wp-content/uploads/2022/01/restaurante-madrid.jpg'); /* Fondo de pantalla */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Fondo fijo sin desplazamiento */
+        }
+
+        /* Contenedor del Login */
+        .login-container {
+            width: 250px;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h2 {
+                font-size: 30px;
+                color: #333;
+                margin-bottom: 30px;
+                font-weight: 600;
+                letter-spacing: 1px;
+                text-align: center;
+                font-family: 'Dancing Script', cursive; /* Nueva fuente */
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra opcional */
+        }
+
+
+        .input-group {
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.3s ease;
+            background-color: #f1f1f1;
+        }
+
+        input[type="text"]:focus, input[type="password"]:focus {
+            border-color: #5ec7f2;
+            box-shadow: 0 0 10px rgba(94, 199, 242, 0.4);
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 14px;
+            font-size: 18px;
+            background-color: #019e01;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #4aacf7;
+        }
+
+        .role-group {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .role-group label {
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            display: block;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #5ec7f2;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        /* Mensaje de error */
+        .error-message {
+            color: #d9534f;
+            font-size: 14px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+            .login-container {
+                width: 80%;
+                padding: 20px;
+            }
+        }
+
+        /* Añadir efecto hover a las opciones de radio */
+        .role-group label:hover {
+            color: #333;
+        }
+
+        /* Estilo del ojo */
+        .eye-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Contenedor del Login -->
+    <div class="login-container">
+        <h2>SABOR LATINO</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Usuario" required>
+            </div>
+            <div class="input-group" style="position: relative;">
+                <input type="password" id="password" placeholder="Contraseña" required>
+                <i class="fas fa-eye eye-icon" id="togglePassword"></i> <!-- Icono de ojo -->
+            </div>
+            <div class="role-group">
+                <label><input type="radio" name="role" value="cliente" checked> Cliente</label>
+                <label><input type="radio" name="role" value="mozo"> Mozo</label>
+            </div>
+            <input type="submit" value="Ingresar">
+            <div class="error-message" id="error-message">Usuario o contraseña incorrectos.</div>
+        </form>
+       
+    </div>
+
+    <script>
+        // Configuración de usuario y contraseñas
+        const usuarios = {
+            cliente: {
+                username: "saborlatino",
+                password: "saborlatino"
+            },
+            mozo: {
+                username: "mozo",
+                password: "mozo"
+            }
+        };
+
+        // Manejo del formulario de login
+        const loginForm = document.getElementById("loginForm");
+        const errorMessage = document.getElementById("error-message");
+
+        loginForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const role = document.querySelector('input[name="role"]:checked').value;
+
+            // Verificar si las credenciales coinciden
+            if (usuarios[role] && usuarios[role].username === username && usuarios[role].password === password) {
+                alert("¡Bienvenido " + role + "!");
+                // Redirigir según el rol
+                if (role === "cliente") {
+                    window.location.href = "index.html"; // Página del cliente
+                } else if (role === "mozo") {
+                    window.location.href = "pedido.html"; // Página del mozo
+                }
+            } else {
+                errorMessage.style.display = "block"; // Mostrar el mensaje de error
+            }
+        });
+
+        // Funcionalidad para mostrar/ocultar la contraseña
+        const togglePassword = document.getElementById("togglePassword");
+        const passwordField = document.getElementById("password");
+
+        togglePassword.addEventListener("click", function() {
+            // Alternar el tipo de input de contraseña
+            const type = passwordField.type === "password" ? "text" : "password";
+            passwordField.type = type;
+
+            // Cambiar el icono del ojo
+            this.classList.toggle("fa-eye-slash");
+        });
+    </script>
+
+</body>
+</html>

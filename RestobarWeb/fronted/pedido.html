@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos Realizados</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Estilo general */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f1f1f1;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            height: 100%; /* Asegura que la página ocupe toda la pantalla */
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 2.5rem;
+            margin-top: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Estilos generales para el contenedor */
+        .container {
+            width: 100%;
+            padding: 20px;
+            overflow-x: auto; /* Permite desplazamiento horizontal si la tabla es más ancha */
+        }
+
+        /* Estilo para la tabla */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed; /* Asegura que la tabla ocupe todo el espacio disponible */
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Estilo para las celdas de productos */
+        .productos {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Estilo de las imágenes de los productos */
+        .productos img {
+            width: 30px;  /* Establece el ancho a 30px */
+            height: 30px; /* Establece la altura a 30px */
+            object-fit: cover; /* Hace que la imagen se recorte si es necesario para encajar */
+            max-width: 30px; /* No permite que las imágenes se expandan más allá de 30px */
+            max-height: 30px; /* No permite que las imágenes se expandan más allá de 30px */
+            display: inline-block; /* Asegura que las imágenes se alineen correctamente con el texto */
+        }
+
+
+        .productos span {
+            font-size: 14px;
+            color: #555;
+            margin-left: 8px;
+        }
+
+        .productos div {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap; /* Para que los productos se ajusten mejor en pantallas pequeñas */
+        }
+
+        /* Botón eliminar de cada producto */
+        .btn-eliminar-producto {
+            background-color: #e74c3c;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border: none;
+        }
+
+        .btn-eliminar-producto:hover {
+            background-color: #c0392b;
+        }
+
+        /* Estilo de los botones generales */
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            text-align: center;
+            display: inline-block;
+            margin-top: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border: none;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        /* Estilo del modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .comprobante-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .comprobante-header h2 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .comprobante-header p {
+            font-size: 14px;
+            margin: 2px 0;
+        }
+
+        .comprobante-body {
+            margin-top: 20px;
+        }
+
+        .comprobante-body h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .comprobante-body .producto {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .comprobante-body .producto p {
+            margin: 0;
+        }
+
+        .comprobante-footer {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .comprobante-footer .total {
+            font-weight: bold;
+        }
+
+        /* Responsividad */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .productos img {
+                width: 16px;
+                height: 16px;
+            }
+
+            .btn {
+                padding: 8px 16px;
+            }
+
+            .btn-eliminar-producto {
+                padding: 5px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Pedidos Realizados</h1>
+
+    <div class="container">
+        <!-- Tabla de pedidos -->
+        <table id="pedido-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Número de Mesa</th>
+                    <th>Fecha</th>
+                    <th>Productos</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se mostrarán los detalles de los pedidos -->
+            </tbody>
+        </table>
+        <a href="login.html" class="btn">Volver al inicio</a>
+    </div>
+
+    <!-- Modal para mostrar comprobante -->
+    <div id="comprobanteModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="comprobante-header">
+                <h2>Sabor Latino</h2>
+                <p>RUC: 10730425878</p>
+                <p>Dirección: Perulandia, 2 cuadras</p>
+            </div>
+            <div id="comprobanteDetails" class="comprobante-body">
+                <!-- Aquí se mostrará la información detallada del pedido -->
+            </div>
+            <div class="comprobante-footer">
+                <p class="total">Total: S/. <span id="totalAmount">0</span></p>
+                <p class="total">IGV: S/. <span id="igvAmount">0</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Obtener los pedidos almacenados en localStorage
+        const pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
+
+        // Mostrar los pedidos
+        const pedidoTable = document.getElementById('pedido-table').getElementsByTagName('tbody')[0];
+
+        pedidos.forEach(pedido => {
+            // Crear una nueva fila para cada pedido
+            const row = pedidoTable.insertRow();
+
+            // Mostrar los detalles del pedido en la tabla
+            row.insertCell(0).textContent = pedido.id;
+            row.insertCell(1).textContent = pedido.cliente;
+            row.insertCell(2).textContent = pedido.telefono;
+            row.insertCell(3).textContent = pedido.mesa;
+            row.insertCell(4).textContent = pedido.fecha;
+
+            // Mostrar los productos de ese pedido
+            const productosCell = row.insertCell(5);
+            let productosHTML = '';
+            pedido.productos.forEach((producto, index) => {
+    productosHTML += `
+        <div>
+            <img src="${producto.imagen}" alt="${producto.nombre}" style="width: 50px; height: 50px; object-fit: cover;">
+            <span>${producto.nombre} (Cantidad: ${producto.cantidad})</span>
+            <button class="btn-eliminar-producto" onclick="eliminarProducto(${pedido.id}, ${index})">Eliminar</button>
+        </div>
+    `;
+});
+
+            productosCell.innerHTML = productosHTML;
+
+            // Agregar la columna de acciones con un botón para el comprobante y otro para eliminar el pedido
+            const accionesCell = row.insertCell(6);
+            
+            const comprobanteBtn = document.createElement('button');
+            comprobanteBtn.textContent = 'Comprobante';
+            comprobanteBtn.classList.add('btn');
+            comprobanteBtn.onclick = () => mostrarComprobante(pedido);
+            accionesCell.appendChild(comprobanteBtn);
+
+            const eliminarBtn = document.createElement('button');
+            eliminarBtn.textContent = 'Eliminar Pedido';
+            eliminarBtn.classList.add('btn', 'btn-eliminar');
+            eliminarBtn.onclick = () => eliminarPedido(pedido.id);
+            accionesCell.appendChild(eliminarBtn);
+        });
+
+        // Función para mostrar el comprobante del pedido
+        function mostrarComprobante(pedido) {
+            const comprobanteModal = document.getElementById("comprobanteModal");
+            const comprobanteDetails = document.getElementById("comprobanteDetails");
+            const totalAmountElement = document.getElementById("totalAmount");
+            const igvAmountElement = document.getElementById("igvAmount");
+
+            let total = 0;
+            let igv = 0;
+            let productosHTML = '';
+            pedido.productos.forEach(producto => {
+                const subtotal = producto.precio * producto.cantidad;
+                total += subtotal;
+                productosHTML += `
+                    <div class="producto">
+                        <p>${producto.nombre} (Cantidad: ${producto.cantidad})</p>
+                        <p>S/. ${subtotal}</p>
+                    </div>
+                `;
+            });
+
+            // Calcular IGV (18%)
+            igv = total * 0.18;
+            const totalConIGV = total + igv;
+
+            // Mostrar datos en el modal
+            comprobanteDetails.innerHTML = `
+                <h3>Detalles del Pedido</h3>
+                ${productosHTML}
+            `;
+            totalAmountElement.textContent = totalConIGV.toFixed(2);
+            igvAmountElement.textContent = igv.toFixed(2);
+
+            // Mostrar el modal
+            comprobanteModal.style.display = "block";
+        }
+
+        // Función para cerrar el modal
+        document.querySelector(".close").onclick = function() {
+            document.getElementById("comprobanteModal").style.display = "none";
+        };
+
+        // Función para eliminar un pedido
+        function eliminarPedido(id) {
+            const index = pedidos.findIndex(pedido => pedido.id === id);
+            if (index !== -1) {
+                pedidos.splice(index, 1);
+                localStorage.setItem('pedidos', JSON.stringify(pedidos));
+                location.reload();
+            }
+        }
+
+        // Función para eliminar un producto de un pedido
+        function eliminarProducto(idPedido, indexProducto) {
+            const pedido = pedidos.find(pedido => pedido.id === idPedido);
+            if (pedido) {
+                pedido.productos.splice(indexProducto, 1);
+                localStorage.setItem('pedidos', JSON.stringify(pedidos));
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>

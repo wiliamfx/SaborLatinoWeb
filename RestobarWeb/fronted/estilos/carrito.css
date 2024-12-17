@@ -1,103 +1,126 @@
-
-        /* Estilos básicos */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f8f8;
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        .carrito-container {
-            width: 90%;
-            margin: 20px auto;
-            background: #fff;
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
-        }
-
-        .carrito-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #ccc;
-            padding-bottom: 10px;
-        }
-
-        .carrito-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid #eee;
-            padding: 10px 0;
-        }
-
-        .carrito-item img {
-            width: 60px;
-            height: 60px;
-            margin-right: 10px;
-            object-fit: cover;
-        }
-
-        .carrito-item-info {
-            flex: 1;
-            display: flex;
-            align-items: center;
-        }
-
-        .carrito-item h3 {
-            margin: 0;
-        }
-
-        .carrito-item p {
-            margin: 0 10px;
-        }
-
-        .carrito-footer {
-            text-align: right;
-            margin-top: 10px;
-        }
-
-        .btn {
-            padding: 8px 12px;
-            background: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .btn:hover {
-            background: #0056b3;
-        }
-
-        .btn-remove {
-            background: #dc3545;
-        }
-
-        .btn-remove:hover {
-            background: #c82333;
-        }
-
-        .precio-cant {
-            display: flex; /* Asegura que el texto y el input estén en línea */
-            align-items: center; /* Alineación vertical */
-            justify-content: flex-end; /* Alinea los elementos a la derecha */
-            gap: 5px; /* Espacio entre el texto y el input */
-            font-size: 1rem; /* Tamaño de fuente */
-            margin-left: auto; /* Empuja el elemento completamente hacia la derecha */
-        }
-        
-        .precio-cant input[type="number"] {
-            width: 50px; /* Ajusta el ancho del input */
-            padding: 5px; /* Espaciado interno */
-            border-radius: 5px; /* Bordes redondeados */
-            border: 1px solid #521717; /* Borde gris claro */
-            text-align: center; /* Centra el valor dentro del input */
-        }
-        
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+h1 {
+    text-align: center;
+    color: #444;
+    margin-top: 20px;
+}
+/* Carrito */
+.carrito-container {
+    width: 90%;
+    max-width: 950px;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+.carrito-header, .carrito-footer {
+    padding: 15px 20px;
+    background-color: #28a745;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.carrito-header h2, .carrito-footer h2 {
+    margin: 0;
+}
+#carrito-items {
+    padding: 20px;
+    min-height: 200px;
+    background-color: #fff;
+}
+.carrito-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+.carrito-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    margin-right: 15px;
+    border-radius: 5px;
+}
+.carrito-item-info {
+    display: flex;
+    align-items: center;
+}
+.precio-cant p {
+    margin: 5px 0;
+}
+input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    margin-left: 5px;
+}
+.btn {
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+}
+.btn-remove {
+    background-color: #dc3545;
+    color: white;
+}
+.btn-remove:hover {
+    background-color: #c82333;
+}
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+.btn-primary:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+/* Formulario */
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+#formulario-pedido {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 20;
+}
+#formulario-pedido h2 {
+    margin-bottom: 15px;
+    color: #444;
+    text-align: center;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
